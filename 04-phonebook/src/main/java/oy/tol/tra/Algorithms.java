@@ -66,7 +66,7 @@ public class Algorithms {
 
     public static <T> int partitionByRule(T[] array, int count, Predicate<? super T> rule) {
         int index = 0;
-        for (; index < count; index++) {
+        for (index = 0; index < count; index++) {
             if (rule.test(array[index])) {
                 break;
             }
