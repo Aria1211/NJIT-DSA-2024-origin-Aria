@@ -31,7 +31,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         if (capacity < DEFAULT_CAPACITY) {
             capacity = DEFAULT_CAPACITY;
         }
-        // Assuming capacity means the count of elements to add, so multiplying by fill factor.
+        
         values = (Pair<K, V>[]) new Pair[(int) ((double) capacity * (1.0 + LOAD_FACTOR))];
         reallocationCount = 0;
         count = 0;
@@ -58,11 +58,10 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
     @Override
     public boolean add(K key, V value) throws IllegalArgumentException, OutOfMemoryError {
-        // Remeber to check for null values.
         if (key == null || value == null) {
             throw new IllegalArgumentException("Key and value cannot be null.");
         }
-        // Checks if the LOAD_FACTOR has been exceeded --> if so, reallocates to a bigger hashtable.
+        
         if (((double) count * (1.0 + LOAD_FACTOR)) >= values.length) {
             reallocate((int) ((double) (values.length) * (1.0 / LOAD_FACTOR)));
         }
@@ -73,22 +72,17 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
         while (values[index] != null) {
             if (values[index].getKey().equals(key)) {
-                // Key already exists, update the value
                 values[index] = new Pair<>(key, value);
                 return true;
             }
-            // Handle collision with linear probing
             index = (index + 1) % values.length;
             probingSteps++;
 
             if (probingSteps > maxProbingSteps) {
                 maxProbingSteps = probingSteps;
             }
-
             collisionCount++;
         }
-
-        // Insert new key-value pair
         values[index] = new Pair<>(key, value);
         count++;
         return true;
@@ -96,30 +90,23 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
     @Override
     public V find(K key) throws IllegalArgumentException {
-        // Remember to check for null.
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null.");
         }
-
         int hash = calcHash(key);
         int index = hash % values.length;
         int probingSteps = 0;
-
-        // Must use same method for computing index as add method
 
         while (values[index] != null) {
             if (values[index].getKey().equals(key)) {
                 return values[index].getValue();
             }
-            // Handle collision with linear probing
             index = (index + 1) % values.length;
             probingSteps++;
-
             if (probingSteps > maxProbingSteps) {
                 maxProbingSteps = probingSteps;
             }
         }
-
         return null;
     }
 

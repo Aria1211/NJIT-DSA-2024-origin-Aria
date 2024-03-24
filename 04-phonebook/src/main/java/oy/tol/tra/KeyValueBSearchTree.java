@@ -2,9 +2,6 @@ package oy.tol.tra;
 
 public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictionary<K, V> {
 
-    // This is the BST implementation, KeyValueHashTable has the hash table
-    // implementation
-
     private TreeNode<K, V> root;
     private int count = 0;
     private int maxTreeDepth = 0;
@@ -33,25 +30,19 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
 
     @Override
     public boolean add(K key, V value) throws IllegalArgumentException, OutOfMemoryError {
-        // Remember null check.
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null!");
         }
-        // If root is null, should go there.
+        
         if (root == null) {
             root = new TreeNode<>(key, value);
             count++;
             return true;
         }
 
-        // update the root node. But it may have children
-        // so do not just replace it with this new node but set
-        // the keys and values for the already existing root.
-
         int hash = key.hashCode();
         int added = root.insert(key, value, hash);
 
-        // Update the maximum tree depth
         int currentDepth = TreeNode.currentAddTreeDepth;
         if (currentDepth > maxTreeDepth) {
             maxTreeDepth = currentDepth;
