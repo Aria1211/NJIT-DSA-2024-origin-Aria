@@ -97,10 +97,6 @@ public class Algorithms {
     }
 
     public static <T> void swap(T[] array, int i, int j) {
-        if (array == null || i < 0 || j < 0 || i >= array.length || j >= array.length) {
-            return;
-        }
-    
         T temp = array[i];
         array[i] = array[j];
         array[j] = temp;
