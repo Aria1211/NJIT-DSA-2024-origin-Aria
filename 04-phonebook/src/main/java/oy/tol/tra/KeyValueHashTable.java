@@ -2,8 +2,6 @@ package oy.tol.tra;
 
 public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary<K, V> {
 
-    // This should implement a hash table.
-
     private Pair<K, V>[] values = null;
     private int count = 0;
     private int collisionCount = 0;
@@ -93,6 +91,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null.");
         }
+        
         int hash = calcHash(key);
         int index = hash % values.length;
         int probingSteps = 0;

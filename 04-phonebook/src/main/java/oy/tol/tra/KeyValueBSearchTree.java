@@ -33,7 +33,6 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null!");
         }
-        
         if (root == null) {
             root = new TreeNode<>(key, value);
             count++;
@@ -42,8 +41,8 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
 
         int hash = key.hashCode();
         int added = root.insert(key, value, hash);
-
         int currentDepth = TreeNode.currentAddTreeDepth;
+        
         if (currentDepth > maxTreeDepth) {
             maxTreeDepth = currentDepth;
         }
@@ -62,7 +61,6 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null!");
         }
-
         if (root == null) {
             return null;
         }
