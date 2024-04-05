@@ -31,23 +31,31 @@ public class Person implements Comparable<Person> {
         return getFullName();
     }
 
+    // Custom hash code implementation
     @Override
     public int hashCode() {
-        return getFullName().hashCode();
+        int hash = 17;
+        String fullName = getFullName();
+        for (int i = 0; i < fullName.length(); i++) {
+            hash = hash * 31 + fullName.charAt(i);
+        }
+        return hash;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other instanceof Person) {
-            if (other.hashCode() == this.hashCode()) {
-                return this.getFullName().equals(((Person) other).getFullName());
-            }
+        if (this == other) {
+            return true;
         }
-        return false;
+        if (!(other instanceof Person)) {
+            return false;
+        }
+        Person person = (Person) other;
+        return this.getFullName().equals(person.getFullName());
     }
 
     @Override
     public int compareTo(Person other) {
-        return getFullName().compareTo(other.getFullName());
+        return this.getFullName().compareTo(other.getFullName());
     }
 }
