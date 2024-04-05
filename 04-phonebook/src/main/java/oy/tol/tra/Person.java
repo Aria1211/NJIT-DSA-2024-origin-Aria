@@ -31,7 +31,6 @@ public class Person implements Comparable<Person> {
         return getFullName();
     }
 
-    // Custom hash code implementation
     @Override
     public int hashCode() {
         int hash = 17;
