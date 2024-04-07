@@ -29,7 +29,7 @@ public class DailyTasks {
       try {
          // TODO:
          // 1. create a queue (to the member variable!) for daily tasks, which are strings.
-         dailyTaskQueue = QueueFactory.createStringQueue();
+         dailyTaskQueue = QueueFactory.createStringQueue(40);
          // 2. read the tasks for today by calling readTasks() -- implementing missing parts of it!
          readTasks();
          // 3. create Java Timer object (to member variable) to schedule your daily tasks. (Already given to you.)
